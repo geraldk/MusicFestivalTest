@@ -14,6 +14,9 @@
 		750E48DB2977C53200484EB8 /* testEATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E48DA2977C53200484EB8 /* testEATests.swift */; };
 		750E48E52977C53200484EB8 /* testEAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E48E42977C53200484EB8 /* testEAUITests.swift */; };
 		750E48E72977C53200484EB8 /* testEAUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E48E62977C53200484EB8 /* testEAUITestsLaunchTests.swift */; };
+		750E48F62977C53F00484EB8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E48F32977C53F00484EB8 /* Models.swift */; };
+		750E48F72977C53F00484EB8 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E48F42977C53F00484EB8 /* Network.swift */; };
+		750E48F82977C53F00484EB8 /* FestivalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E48F52977C53F00484EB8 /* FestivalViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		750E48E02977C53200484EB8 /* testEAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testEAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		750E48E42977C53200484EB8 /* testEAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testEAUITests.swift; sourceTree = "<group>"; };
 		750E48E62977C53200484EB8 /* testEAUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testEAUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		750E48F32977C53F00484EB8 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		750E48F42977C53F00484EB8 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		750E48F52977C53F00484EB8 /* FestivalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FestivalViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,9 @@
 		750E48C82977C53100484EB8 /* testEA */ = {
 			isa = PBXGroup;
 			children = (
+				750E48F52977C53F00484EB8 /* FestivalViewModel.swift */,
+				750E48F32977C53F00484EB8 /* Models.swift */,
+				750E48F42977C53F00484EB8 /* Network.swift */,
 				750E48C92977C53100484EB8 /* testEAApp.swift */,
 				750E48CB2977C53100484EB8 /* ContentView.swift */,
 				750E48CD2977C53200484EB8 /* Assets.xcassets */,
@@ -257,7 +266,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				750E48F62977C53F00484EB8 /* Models.swift in Sources */,
 				750E48CC2977C53100484EB8 /* ContentView.swift in Sources */,
+				750E48F82977C53F00484EB8 /* FestivalViewModel.swift in Sources */,
+				750E48F72977C53F00484EB8 /* Network.swift in Sources */,
 				750E48CA2977C53100484EB8 /* testEAApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
