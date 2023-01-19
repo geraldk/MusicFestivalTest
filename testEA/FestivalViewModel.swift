@@ -14,10 +14,11 @@ public class FestivalViewModel: ObservableObject {
         self.service = service
     }
     
+    @MainActor
     public func getLabels() async {
         do {
             let festivals = try await service.getFestivals()
-            state = .success(result: sortFestivalsToLabels(festivals: festivals))
+            state = .success(result: sortFestivalsToLabelsV2(festivals: festivals))
         } catch {
             if let apiError = error as? APIError {
                 state = .failure(apiError)
@@ -27,9 +28,8 @@ public class FestivalViewModel: ObservableObject {
         }
     }
     
-    sdafsdaf
-    // Can I make this more efficient by throwing things into Sets and merging?
-    private func sortFestivalsToLabels(festivals: [MusicFestival]) -> MusicLabels {
+    // This is faster but misses the same band in different labels
+    func sortFestivalsToLabels(festivals: [MusicFestival]) -> MusicLabels {
         var recordLabels: MusicLabels = [:]
         
         for festival in festivals {
@@ -43,8 +43,13 @@ public class FestivalViewModel: ObservableObject {
                                                                  festivals: [festivalName])]
                 } else {
                     // If record label and band exist, add festival to band
-                    if let index = recordLabels[recordLabel]?.firstIndex(where: { $0.name == bandName }) {
-                        recordLabels[recordLabel]?[index].festivals.append(festivalName)
+                    let indexes = recordLabels[recordLabel]?
+                        .enumerated()
+                        .filter{$1.name == bandName}.map{$0.offset}
+                    if let indexes = indexes, indexes.count > 0  {
+                        for index in indexes {
+                            recordLabels[recordLabel]?[index].festivals.append(festivalName)
+                        }
                     } else { // If band doesn't exist, add new band
                         recordLabels[recordLabel]?.append(OutputBand(name: bandName,
                                                                           festivals: [festivalName]))
@@ -57,5 +62,27 @@ public class FestivalViewModel: ObservableObject {
             sortedBands[label] = bands.sorted { $0.name < $1.name }
         }
         return sortedBands
+    }
+    
+//  Twice as slow as V1 but more correct
+    func sortFestivalsToLabelsV2(festivals: [MusicFestival]) -> MusicLabels {
+        var labelBand: [String: Set<String>] = [:]
+        var bandFestival: [String: Set<String>] = [:]
+        for festival in festivals {
+            for band in festival.bands {
+                guard let labelName = band.recordLabel, let bandName = band.name, let festivalName = festival.name else { continue }
+                if labelBand[labelName] == nil { labelBand[labelName] = [] }
+                if bandFestival[bandName] == nil { bandFestival[bandName] = [] }
+                labelBand[labelName]?.insert(bandName)
+                bandFestival[bandName]?.insert(festivalName)
+            }
+        }
+
+        var output: [String: [OutputBand]] = [:]
+        for labelName in labelBand.keys {
+            let bands = bandFestival.filter { labelBand[labelName]!.contains($0.key) }
+            output[labelName] = bands.map { OutputBand(name: $0.key, festivals: $0.value.sorted()) }
+        }
+        return output
     }
 }

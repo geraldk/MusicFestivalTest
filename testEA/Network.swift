@@ -23,6 +23,7 @@ public class NetworkService: NetworkServiceType {
             throw APIError.throttled
         }
         guard let responseObject = try? JSONDecoder().decode(type, from: data) else {
+            // This handles empty responses too, probably should handle more optionals in Model if I had more time
             throw APIError.invalidResponseJSON
         }
         
@@ -45,7 +46,7 @@ public enum APIError: Error {
         case .noNetwork:
             return "No network connection detected, please check your settings"
         case .invalidResponseJSON:
-            return "Cannot recognize response, please update your app"
+            return "Got an empty response, please try again later"
         case .invalidURL:
             return "Invalid URL, please contact support"
         case .other:
